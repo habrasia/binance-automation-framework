@@ -40,14 +40,14 @@ jobs:
       run: dotnet build ${{ env.SOLUTION_PATH }} --configuration Release --no-restore
       
     - name: Run unit tests
-      run: dotnet test ${{ env.SOLUTION_PATH }} --configuration Release --no-build --filter "FullyQualifiedName~Unit" --logger "trx;LogFileName=unit-test-results.trx" --collect:"XPlat Code Coverage"
+      run: dotnet test ${{ env.SOLUTION_PATH }} --configuration Release --no-build --filter "FullyQualifiedName~Unit" --logger "trx;LogFileName=unit-test-results.trx" --verbosity normal
       
     - name: Run integration tests
       env:
         BINANCEAPI__APIKEY: ${{ secrets.BINANCE_API_KEY }}
         BINANCEAPI__BASEURL: "https://binance43.p.rapidapi.com"
         BINANCEAPI__APIHOST: "binance43.p.rapidapi.com"
-      run: dotnet test ${{ env.SOLUTION_PATH }} --configuration Release --no-build --filter "Category=Integration" --logger "trx;LogFileName=integration-test-results.trx"
+      run: dotnet test ${{ env.SOLUTION_PATH }} --configuration Release --no-build --filter "Category=Integration" --logger "trx;LogFileName=integration-test-results.trx" --verbosity normal
       
     - name: Upload test results
       uses: actions/upload-artifact@v4
@@ -67,15 +67,6 @@ jobs:
         path: |
           **/results/top_gainers_*.json
         retention-days: 7
-        
-    - name: Test Summary
-      uses: test-reporter/action@v1
-      if: always()
-      with:
-        name: Test Results
-        path: '**/TestResults/*.trx'
-        reporter: dotnet-trx
-        fail-on-error: true
 
   code-quality:
     name: Code Quality Checks
