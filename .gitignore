@@ -447,3 +447,8 @@ TestResults/
 # Environment variables
 .env
 .env.local
+
+# Test output
+results/
+TestResults/
+*.trx
