@@ -32,7 +32,7 @@ public static class ServiceCollectionExtensions
         // Register HttpClient with typed client pattern
         services.AddHttpClient<IBinanceApiClient, BinanceApiClient>(client =>
             {
-                client.BaseAddress = new Uri(options.BaseUrl);
+                client.BaseAddress = new Uri(options!.BaseUrl);
                 client.Timeout = TimeSpan.FromSeconds(options.TimeoutSeconds);
                 
                 client.DefaultRequestHeaders.Clear();
@@ -41,7 +41,7 @@ public static class ServiceCollectionExtensions
                 client.DefaultRequestHeaders.Accept.Add(
                     new MediaTypeWithQualityHeaderValue("application/json"));
             })
-            .AddPolicyHandler(GetRetryPolicy(options.RetryCount))
+            .AddPolicyHandler(GetRetryPolicy(options!.RetryCount))
             .AddPolicyHandler(GetCircuitBreakerPolicy());
 
         return services;

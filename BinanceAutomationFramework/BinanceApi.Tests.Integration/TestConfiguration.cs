@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using BinanceApi.Client;
 using BinanceApi.Services;
+using BinanceApi.Reporter;
 
 namespace BinanceApi.Tests.Integration;
 
@@ -48,6 +49,7 @@ public static class TestConfiguration
         // Add our services
         services.AddBinanceApiClient(configuration);
         services.AddBinanceServices();
+        services.AddReporters();  // ← ADD THIS LINE
 
         return services.BuildServiceProvider();
     }
