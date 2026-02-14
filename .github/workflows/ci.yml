@@ -5,7 +5,7 @@ on:
     branches: [ main, develop ]
   pull_request:
     branches: [ main, develop ]
-  workflow_dispatch: # Allow manual trigger
+  workflow_dispatch:
 
 env:
   DOTNET_VERSION: '8.0.x'
@@ -30,9 +30,7 @@ jobs:
       with:
         path: ~/.nuget/packages
         key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
-        restore-path: |
-          ~/.nuget/packages
-          
+        
     - name: Restore dependencies
       run: dotnet restore ${{ env.SOLUTION_PATH }}
       
@@ -44,9 +42,9 @@ jobs:
       
     - name: Run integration tests
       env:
-        BINANCEAPI__APIKEY: ${{ secrets.BINANCE_API_KEY }}
-        BINANCEAPI__BASEURL: "https://binance43.p.rapidapi.com"
-        BINANCEAPI__APIHOST: "binance43.p.rapidapi.com"
+        BINANCEAPI__BASEURL: "https://api.binance.com/api/v3"
+        BINANCEAPI__APIKEY: ""
+        BINANCEAPI__APIHOST: ""
       run: dotnet test ${{ env.SOLUTION_PATH }} --configuration Release --no-build --filter "Category=Integration" --logger "trx;LogFileName=integration-test-results.trx" --verbosity normal
       
     - name: Upload test results

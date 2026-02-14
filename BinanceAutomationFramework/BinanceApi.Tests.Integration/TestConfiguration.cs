@@ -60,13 +60,12 @@ public static class TestConfiguration
     /// </summary>
     public static void ValidateConfiguration(IConfiguration configuration)
     {
-        var apiKey = configuration["BinanceApi:ApiKey"];
+        var baseUrl = configuration["BinanceApi:BaseUrl"];
         
-        if (string.IsNullOrWhiteSpace(apiKey) || apiKey == "YOUR_API_KEY_HERE")
+        if (string.IsNullOrWhiteSpace(baseUrl))
         {
             throw new InvalidOperationException(
-                "API Key not configured. Please set BinanceApi:ApiKey in appsettings.Development.json " +
-                "or set environment variable BINANCEAPI__APIKEY");
+                "BaseUrl not configured. Please set BinanceApi:BaseUrl in appsettings.json");
         }
     }
 }

@@ -8,19 +8,19 @@ public class BinanceApiOptions
     public const string SectionName = "BinanceApi";
 
     /// <summary>
-    /// Base URL (e.g., "https://binance43.p.rapidapi.com")
+    /// Base URL (e.g., "https://api.binance.com/api/v3")
     /// </summary>
     public string BaseUrl { get; set; } = string.Empty;
 
     /// <summary>
-    /// RapidAPI authentication key
+    /// RapidAPI authentication key (optional - not needed for public Binance API)
     /// </summary>
-    public string ApiKey { get; set; } = string.Empty;
+    public string? ApiKey { get; set; }  // ← Make nullable
 
     /// <summary>
-    /// RapidAPI host header
+    /// RapidAPI host header (optional)
     /// </summary>
-    public string ApiHost { get; set; } = string.Empty;
+    public string? ApiHost { get; set; }  // ← Make nullable
 
     public int TimeoutSeconds { get; set; } = 30;
     public int RetryCount { get; set; } = 3;

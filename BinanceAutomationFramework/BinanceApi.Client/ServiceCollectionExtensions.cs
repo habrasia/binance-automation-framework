@@ -36,8 +36,18 @@ public static class ServiceCollectionExtensions
                 client.Timeout = TimeSpan.FromSeconds(options.TimeoutSeconds);
                 
                 client.DefaultRequestHeaders.Clear();
-                client.DefaultRequestHeaders.Add("x-rapidapi-key", options.ApiKey);
-                client.DefaultRequestHeaders.Add("x-rapidapi-host", options.ApiHost);
+                
+                // Only add API key headers if provided (for RapidAPI compatibility)
+                if (!string.IsNullOrWhiteSpace(options.ApiKey))
+                {
+                    client.DefaultRequestHeaders.Add("x-rapidapi-key", options.ApiKey);
+                }
+                
+                if (!string.IsNullOrWhiteSpace(options.ApiHost))
+                {
+                    client.DefaultRequestHeaders.Add("x-rapidapi-host", options.ApiHost);
+                }
+                
                 client.DefaultRequestHeaders.Accept.Add(
                     new MediaTypeWithQualityHeaderValue("application/json"));
             })
@@ -63,20 +73,6 @@ public static class ServiceCollectionExtensions
             throw new ArgumentException(
                 "BaseUrl is required in BinanceApi configuration.", 
                 nameof(options.BaseUrl));
-        }
-
-        if (string.IsNullOrWhiteSpace(options.ApiKey))
-        {
-            throw new ArgumentException(
-                "ApiKey is required in BinanceApi configuration.", 
-                nameof(options.ApiKey));
-        }
-
-        if (string.IsNullOrWhiteSpace(options.ApiHost))
-        {
-            throw new ArgumentException(
-                "ApiHost is required in BinanceApi configuration.", 
-                nameof(options.ApiHost));
         }
 
         if (options.TimeoutSeconds <= 0)
