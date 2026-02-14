@@ -13,6 +13,7 @@ namespace BinanceApi.Tests.Unit;
 /// These tests are fast, isolated, and deterministic.
 /// </summary>
 [TestFixture]
+[Category("Unit")]
 public class TopGainersServiceTests
 {
     private Mock<IBinanceApiClient> _mockApiClient = null!;
