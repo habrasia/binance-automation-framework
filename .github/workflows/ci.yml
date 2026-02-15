@@ -9,7 +9,7 @@ on:
 
 env:
   DOTNET_VERSION: '8.0.x'
-  SOLUTION_PATH: './BinanceAutomationFramework'
+  SOLUTION_PATH: './BinanceAutomationFramework/BinanceAutomationFramework.sln'
 
 jobs:
   build-and-test:
@@ -30,6 +30,8 @@ jobs:
       with:
         path: ~/.nuget/packages
         key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
+        restore-keys: |
+          ${{ runner.os }}-nuget-
         
     - name: Restore dependencies
       run: dotnet restore ${{ env.SOLUTION_PATH }}
@@ -38,7 +40,7 @@ jobs:
       run: dotnet build ${{ env.SOLUTION_PATH }} --configuration Release --no-restore
       
     - name: Run unit tests
-      run: dotnet test ${{ env.SOLUTION_PATH }} --configuration Release --no-build --filter "Category=Unit" --logger "trx;LogFileName=unit-test-results.trx" --verbosity normal
+      run: dotnet test ${{ env.SOLUTION_PATH }} --configuration Release --no-build --filter "Category=Unit" --logger "trx;LogFileName=unit-test-results.trx" --verbosity normal --results-directory TestResults
       
     - name: Run integration tests
       env:
@@ -46,14 +48,15 @@ jobs:
         BINANCEAPI__BASEURL: "https://binance43.p.rapidapi.com"
         BINANCEAPI__APIHOST: "binance43.p.rapidapi.com"
       run: |
-        echo "=================================================="
-        echo "Running Integration Tests"
-        echo "=================================================="
+        echo "=========================================="
+        echo "  Integration Tests"
+        echo "=========================================="
         echo ""
-        echo "Note: Tests may skip due to RapidAPI geo-restrictions (HTTP 451)"
-        echo "If skipped, run locally to verify: dotnet test --filter \"Category=Integration\""
+        echo "⚠️  Note: Tests may skip if geo-blocked (HTTP 451)"
+        echo "      This is a known RapidAPI limitation with GitHub Actions"
         echo ""
-        dotnet test ${{ env.SOLUTION_PATH }} --configuration Release --no-build --filter "Category=Integration" --logger "trx;LogFileName=integration-test-results.trx" --verbosity normal
+        dotnet test ${{ env.SOLUTION_PATH }} --configuration Release --no-build --filter "Category=Integration" --logger "trx;LogFileName=integration-test-results.trx" --verbosity normal --results-directory TestResults
+        echo ""
       
     - name: Upload test results
       uses: actions/upload-artifact@v4
@@ -61,6 +64,6 @@ jobs:
       with:
         name: test-results
         path: |
-          **/TestResults/*.trx
+          TestResults/**/*.trx
           **/results/*.json
         retention-days: 30
