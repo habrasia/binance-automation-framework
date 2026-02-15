@@ -26,6 +26,7 @@
   <ItemGroup>
     <ProjectReference Include="..\BinanceApi.Services\BinanceApi.Services.csproj" />
     <ProjectReference Include="..\BinanceApi.Client\BinanceApi.Client.csproj" />
+    <ProjectReference Include="..\BinanceApi.Reporter\BinanceApi.Reporter.csproj" />
   </ItemGroup>
 
   <ItemGroup>
