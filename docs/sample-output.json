@@ -1,0 +1,29 @@
+{
+  "generatedAt": "2026-02-15T13:24:36.8722148Z",
+  "topGainers": [
+    {
+      "rank": 1,
+      "symbol": "HYPERFDUSD",
+      "priceChangePercent": 242.539,
+      "averagePrice": 0.35350000,
+      "lastPrice": 0.35350000,
+      "volume": "1748253.10000000"
+    },
+    {
+      "rank": 2,
+      "symbol": "RUNEGBP",
+      "priceChangePercent": 66.841,
+      "averagePrice": 1.28152632,
+      "lastPrice": 1.27800000,
+      "volume": "582950.20000000"
+    },
+    {
+      "rank": 3,
+      "symbol": "ADAGBP",
+      "priceChangePercent": 65.377,
+      "averagePrice": 0.51300000,
+      "lastPrice": 0.51300000,
+      "volume": "833927.70000000"
+    }
+  ]
+}
