@@ -69,10 +69,14 @@ dotnet test
 🏆 RANK #2: RUNEGBP
    Price Change:    +66.84%
    Average Price:   1.28152632
+   Last Price:      1.27800000
+   24h Volume:      582950.20000000
 
 🏆 RANK #3: ADAGBP
    Price Change:    +65.38%
    Average Price:   0.51300000
+   Last Price:      0.51300000
+   24h Volume:      833927.70000000
 
 ═══════════════════════════════════════════════════════════════
 Report generated at: 2026-02-15 12:09:46 UTC
@@ -252,6 +256,7 @@ docs/
   ├── AI_USAGE.md              # Development methodology
   ├── sample-output.json       # Output example
   └── tests-passing.png        # Local test results
+.cursorrules                   # AI governance standards
 ```
 
 ---
@@ -285,11 +290,26 @@ docs/
 
 ## Development Approach
 
-Developed with AI-assisted tooling for scaffolding and acceleration.
+Developed with AI-assisted tooling (Cursor with Claude 3.5 Sonnet) using agent-style prompting workflows.
 
-All architecture, design trade-offs, validation, and quality decisions were performed manually. Generated code was reviewed and refactored for resilience, clarity, and testability.
+**AI-assisted development:**
+- Scaffolding and boilerplate generation
+- Pattern implementation (Polly policies, DI setup, test structure)
+- Agent-style prompting for code review and troubleshooting
 
-**See:** [docs/AI_USAGE.md](docs/AI_USAGE.md) for detailed methodology and examples.
+**Human validation:**
+- All architectural decisions and trade-offs
+- Resilience threshold tuning
+- Error handling philosophy
+- Production considerations
+- Code review and refinement
+
+**Post-development:**
+- Created `.cursorrules` to codify the architectural standards used
+- Demonstrates how AI governance would operate for future work
+- Documents patterns for team-scale AI infrastructure
+
+**See:** [docs/AI_USAGE.md](docs/AI_USAGE.md) for detailed methodology, agent-style prompting examples, conceptual MCP/agent designs, and complete prompt history.
 
 ---
 
