@@ -49,14 +49,14 @@ public static class TestConfiguration
         // Add our services
         services.AddBinanceApiClient(configuration);
         services.AddBinanceServices();
-        services.AddReporters();  // ← ADD THIS LINE
+        services.AddReporters();
 
         return services.BuildServiceProvider();
     }
 
     /// <summary>
     /// Validates that required configuration is present.
-    /// Throws helpful exception if API key is missing.
+    /// Throws exception if API key is missing - this is a configuration error that should fail the build.
     /// </summary>
     public static void ValidateConfiguration(IConfiguration configuration)
     {
@@ -65,8 +65,10 @@ public static class TestConfiguration
         if (string.IsNullOrWhiteSpace(apiKey) || apiKey == "YOUR_API_KEY_HERE")
         {
             throw new InvalidOperationException(
-                "API Key not configured. Please set BinanceApi:ApiKey in appsettings.Development.json " +
-                "or set environment variable BINANCEAPI__APIKEY");
+                "API Key not configured. " +
+                "Set BINANCEAPI__APIKEY environment variable or create appsettings.Development.json. " +
+                "For CI/CD: Add BINANCE_API_KEY secret in GitHub repository settings. " +
+                "See README for setup instructions.");
         }
     }
 }
